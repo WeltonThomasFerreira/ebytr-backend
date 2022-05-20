@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { Task, Model } from '../interfaces'
+import { sortByAlpha, sortByNew } from './utils/filters'
 
 export default class TaskModel implements Model<Task> {
   private readonly _taskModel = mongoose.model(
@@ -7,7 +8,7 @@ export default class TaskModel implements Model<Task> {
     new mongoose.Schema({
       task: String,
       status: String,
-      createdAt: { type: Date, default: new Date() },
+      createdAt: { type: Date, default: Date.now },
       __v: { type: Number, select: false }
     })
   )
@@ -22,8 +23,11 @@ export default class TaskModel implements Model<Task> {
     }
   }
 
-  read (): Promise<Task[]> {
-    throw new Error('Method not implemented.')
+  async read (sort: unknown): Promise<Task[]> {
+    const tasks = await this._taskModel.find({}).exec()
+    if (sort === 'alpha') return sortByAlpha(tasks)
+    if (sort === 'new') return sortByNew(tasks)
+    return tasks
   }
 
   readOne (args: string): Promise<Task | null> {
