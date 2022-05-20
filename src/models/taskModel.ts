@@ -30,8 +30,11 @@ export default class TaskModel implements Model<Task> {
     return tasks
   }
 
-  readOne (args: string): Promise<Task | null> {
-    throw new Error('Method not implemented.')
+  async readByStatus (status: string, sort: unknown): Promise<Task[]> {
+    const tasks = await this._taskModel.find({ status }).exec()
+    if (sort === 'alpha') return sortByAlpha(tasks)
+    if (sort === 'new') return sortByNew(tasks)
+    return tasks
   }
 
   update (arg1: string, arg2: object): Promise<Task | null> {
