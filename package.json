@@ -1,0 +1,57 @@
+{
+  "name": "ebytr-backend",
+  "version": "1.0.0",
+  "description": "[19/05/22] Ebytr todo list with MERN stack.",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --watch \"./src/**\" --ext \"ts,js\" --ignore \"src/**/*.spec.ts,src/**/*.json\" --exec \"ts-node src/index.ts\"",
+    "lint": "eslint . --ext .js,.ts",
+    "test": "mocha -r ts-node/register src/tests/**/*.test.ts --exit -t 60000",
+    "mongo:up": "docker run --name todo-list -p 27017:27017 -d mongo",
+    "mongo:down": "docker stop -t 0 todo-list && docker rm todo-list -v",
+    "mongo:start": "docker start todo-list",
+    "mongo:stop": "docker stop -t 0 todo-list",
+    "mongo:sh": "docker exec -it todo-list mongosh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WeltonThomasFerreira/ebytr-backend.git"
+  },
+  "keywords": [],
+  "author": "Thomas Ferreira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WeltonThomasFerreira/ebytr-backend/issues"
+  },
+  "homepage": "https://github.com/WeltonThomasFerreira/ebytr-backend#readme",
+  "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/express": "^4.17.13",
+    "@types/joi": "^17.2.3",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.35",
+    "@types/nodemon": "^1.19.1",
+    "@types/sinon": "^10.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.15.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "git-commit-msg-linter": "^4.1.2",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.16",
+    "sinon": "^14.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "joi": "^17.6.0",
+    "mongoose": "^6.3.4"
+  }
+}
